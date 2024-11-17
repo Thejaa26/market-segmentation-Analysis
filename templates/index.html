@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Market Segmentation analysis</title>
+
+  <style type="text/css">
+    * {
+      text-decoration: none;
+    }
+
+    .navbar {
+      background: cornflowerblue;
+      font-family: calibri;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+
+    .navdiv {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo a {
+      font-size: 35px;
+      font-weight: 600;
+      color: white;
+    }
+
+    li {
+      list-style: none;
+      display: inline-block;
+    }
+
+    li a {
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      margin-right: 25px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navdiv">
+      <div class="logo">
+        <a href="#">MARKET SEGMENTATION ANALYSIS USING ML.</a>
+      </div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About </a></li>
+        <li><a href="#">Contact </a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <form action="/predict" method="POST">
+    <div style="text-align: center;">
+
+      <label for="yummy">yummy:</label> <br>
+      <input type="text" id="yummy" name="yummy"><br><br>
+      <label for="convenient">Convenient:</label><br>
+      <input type="text" id="convenient" name="convenient"><br><br>
+
+      <label for="spicy">Spicy:</label><br>
+      <input type="text" id="spicy" name="spicy"><br><br>
+
+      <label for="fattening">Fattening:</label><br>
+      <input type="text" id="fattening" name="fattening"><br><br>
+
+      <label for="greasy">Greasy:</label><br>
+      <input type="text" id="greasy" name="greasy"><br><br>
+
+      <label for="fast">Fast:</label><br>
+      <input type="text" id="fast" name="fast"><br><br>
+
+      <label for="cheap">Cheap:</label><br>
+      <input type="text" id="cheap" name="cheap"><br><br>
+
+      <label for="tasty">Tasty:</label><br>
+      <input type="text" id="tasty" name="tasty"><br><br>
+
+      <label for="expensive">Expensive:</label><br>
+      <input type="text" id="expensive" name="expensive"><br><br>
+
+
+      <label for="healthy">healthy:</label><br>
+      <input type="text" id="healthy" name="healthy"><br><br>
+
+      <label for="disgusting">disgusting:</label><br>
+      <input type="text" id="disgusting" name="disgusting"><br><br>
+
+      <label for="Like">Like:</label><br>
+      <input type="text" id="Like" name="Like"><br><br>
+      
+      <label for="Age">Age:</label><br>
+      <input type="text" id="Age" name="Age"><br><br>
+
+      <label for="VisitFrequency">VisitFrequency:</label><br>
+      <input type="text" id="VisitFrequency" name="VisitFrequency"><br><br>
+
+      <label for="Gender">Gender:</label><br>
+      <input type="text" id="Gender" name="Gender"><br><br>
+      
+      <button id="predict" class="btn btn-primary btn-block btn-large">Predict!</button><br><br>
+      
+     </div>
+  </form>
+  <br>
+  <br>
+  {{ prediction_text }}
+</body>
+<script>
+var predictButton = document.getElementById('predict');
+    predictButton.addEventListener('click', function() {
+        var ym = document.getElementById('yummy').value;
+        var cn = document.getElementById('convenient').value
+        var sp = document.getElementById('spicy').value;
+        var ft = document.getElementById('fattening').value;
+        var gr = document.getElementById('greasy').value;
+        var fs = document.getElementById('fast').value;
+        var ch = document.getElementById('cheap').value;
+        var ts = document.getElementById('tasty').value;
+        var ex = document.getElementById('expensive').value;
+        var he = document.getElementById('healthy').value;
+        var ds = document.getElementById('disgusting').value;
+        var lk = document.getElementById('Like').value;
+        var a = parseInt(document.getElementById('Age').value, 10);
+        var vf = document.getElementById('VisitFrequency').value;
+        var g = document.getElementById('Gender').value;
+        
+        // console.log('hello');
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/predict_api', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                alert('Data sent to Flask!');
+                // You can handle the response from Flask here
+            }
+        };
+
+        // Send the data as JSON
+
+        xhr.send(JSON.stringify([[ym,cn,sp,ft,gr,fs,ch,ts,ex,he,ds,a,lk,vf,g]]));
+    })
+</script>
+</html>
